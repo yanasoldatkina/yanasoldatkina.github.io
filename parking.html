@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Паркинг</title>
+		<link rel="stylesheet" href="parking.css"/>
+</head>
+<body>
+	<div class="page">
+		<div class="content">
+			<strong>Свободно мест: <span id="counter"></span></strong>
+			<p>Выберите машину, затем место для ее парковки:</p>
+		</div>
+<table width="100%">
+	<tr>
+		<td>
+			<table id="parking">
+				<tr>
+					<td><div id="parking-place-1" class="parking-place" onclick="selectPlace(1)"></div></td>
+					<td></td>
+					<td><div id="parking-place-2" class="parking-place" onclick="selectPlace(2)"></div></td>
+				</tr>
+				<tr>
+					<td><div id="parking-place-3" class="parking-place" onclick="selectPlace(3)"></div></td>
+					<td></td>
+					<td><div id="parking-place-4" class="parking-place" onclick="selectPlace(4)"></div></td>
+				</tr>
+				<tr>
+					<td><div id="parking-place-5" class="parking-place" onclick="selectPlace(5)"></div></td>
+					<td></td>
+					<td><div id="parking-place-6" class="parking-place" onclick="selectPlace(6)"></div></td>
+				</tr>
+				<tr>
+					<td><div id="parking-place-7" class="parking-place" onclick="selectPlace(7)"></div></td>
+					<td></td>
+					<td><div id="parking-place-8" class="parking-place" onclick="selectPlace(8)"></div></td>
+				</tr>
+			</table>
+		</td>
+		<td>
+			<div class="cars">
+				<div id="car-1" onclick="selectCar(1)" class="car"></div>
+				<div id="car-2" onclick="selectCar(2)" class="car"></div>
+				<div id="car-3" onclick="selectCar(3)" class="car"></div>
+				<div id="car-4" onclick="selectCar(4)" class="car"></div>
+			</div>	
+		</td>
+	</tr>
+</table>
+	</div>
+	 </body>
+</html>
+    <div class="footer">
+        <center>Soldatkina Yana, 2017</center>
+    </div>
+<script>
+	var counter = document.getElementById("counter");
+	var allParking = document.querySelectorAll(".parking-place").length; // всего парковочных мест
+	counter.innerHTML = allParking;
+
+	// Выбираем машину
+	var selectedCar = null;
+	var selectCar = function(car) {
+		if(selectedCar) {
+			selectedCar.className = "car";
+		}
+		selectedCar = document.getElementById("car-" + car);
+
+		// Если тачка припаркована, возвращаем обратно
+		if(selectedCar.style.position == "absolute") {
+			selectedCar.style.position = null;
+			selectedCar.style.top = null;
+			selectedCar.style.left = null;
+			selectedCar.style.margin = null;
+			selectedCar.className = "car";
+		} else {
+			selectedCar.className = "car selected";
+		}
+
+		calc();
+	}
+
+	// Выбираем место парковки
+	var selectPlace = function(p) {
+		if(!selectedCar) {
+			alert("Вы не выбрали машину!");
+			return;
+		}
+
+		var place = document.getElementById("parking-place-" + p);
+
+		// получаем позицию парковочного места
+		var pos = place.getBoundingClientRect();
+		if(isPlaceEmpty(pos)) {
+			selectedCar.style.position = "absolute";
+			selectedCar.style.top = pos.top + "px";
+			selectedCar.style.left = pos.left + "px";
+			selectedCar.style.margin = "0 30px";
+
+			selectedCar.className = "car";
+
+			selectedCar = null;
+
+			calc();
+		} else {
+			alert("Парковочное место занято!");
+		}
+	}
+
+	// проверяем, занято ли место или нет
+	var isPlaceEmpty = function(pos) {
+		var result = true;
+
+		document.querySelectorAll(".cars .car").forEach(function(car) {
+			if(car.style.position == "absolute" && car.style.top == pos.top + "px" && car.style.left == pos.left + "px") {
+				result = false;
+			}
+		});
+
+		return result;
+	}
+
+	// считаем свободные места на парковке
+	var calc = function() {
+		var count = 0;
+		document.querySelectorAll(".cars .car").forEach(function(car) {
+			if(car.style.position == "absolute") {
+				count++;
+			}
+		});
+
+		counter.innerHTML = allParking - count;
+	}
+</script>
+	
+</body>
+</html>

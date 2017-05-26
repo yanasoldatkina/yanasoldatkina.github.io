@@ -1,0 +1,73 @@
+#parking {
+	width: 500px;
+	border: 1px solid black;
+}
+
+#parking tr td div {
+	background: green;
+	height: 100px;
+	cursor: pointer;
+}
+
+#parking tr td {
+	width: 33%;
+}
+
+#parking tr td:first-child {
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+#parking tr td:last-child {
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.cars {
+	margin-top: 30px;
+}
+
+.car {
+	background: url("http://www.i2clipart.com/cliparts/7/6/3/4/clipart-nioubiteul-7634.png");
+	background-size: cover;
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	cursor: pointer;
+	border-bottom: 2px solid transparent;
+}
+
+.car.selected {
+	border-bottom: 2px solid red;
+}
+
+body {
+	background: #000 url("1.jpg") top center no-repeat fixed;
+	color: #fff;
+	font-family: arial;
+}
+
+img {
+	max-width: 100%;
+}
+
+.page {
+	margin: 0 auto;
+	width: 950px;
+	
+	background: rgba(0,0,0,0.6);
+}
+
+
+.footer {
+	margin-top: 50px;
+	color: #FFF;
+	font-weight: bold
+}
+
+.content {
+	padding: 20px;
+	font-family: arial;
+}
